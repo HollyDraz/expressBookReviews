@@ -13,13 +13,26 @@ public_users.post("/register", (req,res) => {
 });
 
 
-public_users.get('/', function (req, res) {
-  // Check if the books array is not empty
-  if (books && books.length > 0) {
-    return res.status(200).json(books);  // Return the books list in JSON format
-  } else {
-    return res.status(404).json({ message: "No books available" });  // Handle case where no books are available
-  }
+
+const fetchBooks = () => {
+  return new Promise((resolve) => {
+      setTimeout(() => resolve(books), 100); // Simulate delay
+  });
+};
+
+public_users.get('/', (req, res) => {
+  fetchBooks()
+      .then(data => {
+          const formattedBooks = JSON.stringify(data, null, 2);
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send(formattedBooks);
+      })
+      .catch(error => {
+          res.status(500).json({
+              message: "Error retrieving book list",
+              error: error.message
+          });
+      });
 });
 
 
