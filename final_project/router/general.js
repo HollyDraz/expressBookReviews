@@ -13,17 +13,14 @@ public_users.post("/register", (req,res) => {
 });
 
 
-//task 1
-// Get the book list available in the shop
 public_users.get('/', function (req, res) {
+  // Check if the books array is not empty
   if (books && books.length > 0) {
     return res.status(200).json(books);  // Return the books list in JSON format
   } else {
     return res.status(404).json({ message: "No books available" });  // Handle case where no books are available
   }
 });
-
-
 
 
 //task 2 
