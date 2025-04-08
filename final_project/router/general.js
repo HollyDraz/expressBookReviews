@@ -5,23 +5,36 @@ let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
 
+
+
 public_users.post("/register", (req,res) => {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  return res.status(300).json({message: "Yet to be implemented, post books"});
 });
 
+
+//task 1
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+public_users.get('/', function (req, res) {
+  if (books && books.length > 0) {
+    return res.status(200).json(books);  // Return the books list in JSON format
+  } else {
+    return res.status(404).json({ message: "No books available" });  // Handle case where no books are available
+  }
 });
 
+
+
+
+//task 2 
 // Get book details based on ISBN
 public_users.get('/isbn/:isbn',function (req, res) {
   //Write your code here
   return res.status(300).json({message: "Yet to be implemented"});
  });
   
+
+ //task 3
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
   //Write your code here
