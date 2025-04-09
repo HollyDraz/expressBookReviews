@@ -23,10 +23,16 @@ node index.js
 
 ## File Structure 
 .
-├── index.js               # Entry point
-├── general.js             # Public user routes
-├── auth_users.js          # Registered user routes
-├── booksdb.js             # Book data
-├── users.js               # Registered users
+├── index.js  
+             # Entry point
+├── general.js  
+           # Public user routes
+├── auth_users.js  
+        # Registered user routes
+├── booksdb.js     
+        # Book data
+├── users.js     
+          # Registered users
 ├── package.json
+
 └── README.md
