@@ -46,10 +46,45 @@ public_users.get('/isbn/:isbn',function (req, res) {
 
  //task 3
 // Get book details based on author
-public_users.get('/author/:author',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+// Fetch books by author using Promise
+const fetchBooksByAuthor = (author) => {
+  return new Promise((resolve, reject) => {
+      const bookKeys = Object.keys(books);
+      const matchingBooks = bookKeys
+          .map(key => books[key])
+          .filter(book => book.author.toLowerCase() === author.toLowerCase());
+      
+      if (matchingBooks.length > 0) {
+          resolve(matchingBooks);
+      } else {
+          reject(new Error("No books found for the given author"));
+      }
+  });
+};
+  
+// Get book details based on author
+public_users.get('/author/:author', (req, res) => {
+  const author = req.params.author;
+  fetchBooksByAuthor(author)
+      .then(matchingBooks => {
+          const formattedBooks = JSON.stringify(matchingBooks, null, 2);
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send(formattedBooks);
+      })
+      .catch(error => {
+          if (error.message === "No books found for the given author") {
+              res.status(404).json({ message: error.message });
+          } else {
+              res.status(500).json({
+                  message: "Error retrieving books by author",
+                  error: error.message
+              });
+          }
+      });
 });
+
+
+
 
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
